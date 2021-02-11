@@ -24,19 +24,18 @@
 | ------------------- | ---------- | ----------- |
 | name                | string     | null:false  |
 | price               | integer    | null:false  |
+| description         | integer    | null:false  |
 | condition_id        | integer    | null:false  |
 | shipping_charge_id  | integer    | null:false  |
 | shipping_area_id    | integer    | null:false  |
 | shipping_date_id    | integer    | null:false  |
 | category_id         | integer    | null:false  |
-| shipping            | references | null:false  |
 | user                | references | null:false  |
 
 ### Association
 
 - belongs_to :user
-- belongs_to :purchase
-
+- has_one :purchase
 
 ## purchases テーブル
 
@@ -61,7 +60,7 @@
 | address          | string     | null:false  |
 | building_name    | string     |             |
 | phone_number     | integer    | null:false  |    
-
+| purchases        | references | null: false |
 ### Association
 
-- belongs_to :user
+- belongs_to :purchases
