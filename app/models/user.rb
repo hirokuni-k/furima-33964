@@ -11,10 +11,12 @@ class User < ApplicationRecord
   
   with_options presence: true do
    validates :nickname, length: { maximum: 6 }
-   validates :family_name, format: { with: /\A[ぁ-んァ-ヶ一-龥々]+\z/} 
-   validates :first_name, format: { with: /\A[ぁ-んァ-ヶ一-龥々]+\z/} 
-   validates :family_name_kana, format:{ with: /\A[ァ-ヶー－]+\z/}
-   validates :first_name_kana, format:{ with: /\A[ァ-ヶー－]+\z/}
+    with_options format: { with: /\A[ぁ-んァ-ヶ一-龥々]+\z/}  do
+     validates :family_name, :first_name 
+    end
+    with_options format:{ with: /\A[ァ-ヶー－]+\z/} do
+      validates :family_name_kana, :first_name_kana
+    end
    validates :birth_day
   end 
 end
