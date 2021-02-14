@@ -1,50 +1,46 @@
-require 'rails_helper'
+require "rails_helper"
+
 RSpec.describe User, type: :model do
-  describe "ユーザー新規登録" do
-    it "nicknameが空だと登録できない" do
-      user = User.new(nickname: "", email: "kkk@gmail.com", password: "00000000", password_confirmation: "00000000", family_name: "a", first_name: "b", family_name_kana: "c", first_name_kana: "d", birth_day: "e" )
-       user.valid?
-       expect(user.errors.full_messages).to include("Nickname can't be blank")
+  before do
+    @user = FactoryBot.build(:user)
+  end
+
+  describe 'ユーザー新規登録' do
+    context '新規登録できるとき' do
+      it 'nicknameとemail、passwordとpassword_confirmation、family_nameとfirst_name,family_name_kanaとfirst_name_kanaが存在すれば登録できる' do
+      end
+      it 'nicknameが6文字以下であれば登録できる' do
+      end
+      it 'passwordとpassword_confirmationが6文字以上であれば登録できる' do
+      end
     end
-    it "emailが空では登録できない" do
-      user = User.new(nickname: "abe", email: "", password: "00000000", password_confirmation: "00000000", family_name: "a", first_name: "b", family_name_kana: "c", first_name_kana: "d", birth_day: "e" )
-      user.valid?
-      expect(user.errors.full_messages).to include("Email can't be blank")
-    end
-    it "passwordが空では登録できない" do
-      user = User.new(nickname: "abe", email: "kkk@gmail.com", password: "", password_confirmation: "00000000", family_name: "a", first_name: "b", family_name_kana: "c", first_name_kana: "d", birth_day: "e" )
-      user.valid?
-      expect(user.errors.full_messages).to include("Password can't be blank")
-    end
-    it "password_confirmationが空では登録できない" do
-      user = User.new(nickname: "abe", email: "kkk@gmail.com", password: "0000000", password_confirmation: "", family_name: "a", first_name: "b", family_name_kana: "c", first_name_kana: "d", birth_day: "e" )
-      user.valid?
-      expect(user.errors.full_messages).to include("Password_confirmation can't be blank")
-    end
-    it "family_nameが空では登録できない" do
-      user = User.new(nickname: "abe", email: "kkk@gmail.com", password: "0000000", password_confirmation: "0000000", family_name: "", first_name: "b", family_name_kana: "c", first_name_kana: "d", birth_day: "e" )
-      user.valid?
-      expect(user.errors.full_messages).to include("Family_name can't be blank")
-    end
-    it "first_nameが空では登録できない" do
-      user = User.new(nickname: "abe", email: "kkk@gmail.com", password: "0000000", password_confirmation: "0000000", family_name: "a", first_name: "", family_name_kana: "c", first_name_kana: "d", birth_day: "e" )
-      user.valid?
-      expect(user.errors.full_messages).to include("First_name can't be blank")
-    end
-    it "family_name_kanaが空では登録できない" do
-      user = User.new(nickname: "abe", email: "kkk@gmail.com", password: "0000000", password_confirmation: "0000000", family_name: "a", first_name: "b", family_name_kana: "", first_name_kana: "d", birth_day: "e" )
-      user.valid?
-      expect(user.errors.full_messages).to include("Family_name_kana can't be blank")
-    end
-    it "first_name_kanaが空では登録できない" do
-      user = User.new(nickname: "abe", email: "kkk@gmail.com", password: "0000000", password_confirmation: "0000000", family_name: "a", first_name: "b", family_name_kana: "c", first_name_kana: "", birth_day: "e" )
-      user.valid?
-      expect(user.errors.full_messages).to include("First_name_kana can't be blank")
-    end
-    it "birth_dayが空では登録できない" do
-      user = User.new(nickname: "abe", email: "kkk@gmail.com", password: "0000000", password_confirmation: "0000000", family_name: "a", first_name: "b", family_name_kana: "c", first_name_kana: "d", birth_day: "" )
-      user.valid?
-      expect(user.errors.full_messages).to include("Birth_day can't be blank")
+    context '新規登録できないとき' do
+      it 'nicknameが空では登録できない' do
+      end
+      it 'emailが空では登録できない' do
+      end
+      it 'passwordが空では登録できない' do
+      end
+      it 'family_nameが空では登録できない' do
+      end
+      it 'first_nameが空では登録できない' do
+      end
+      it 'family_name_kanaが空では登録できない' do
+      end
+      it 'first_name_kanaが空では登録できない' do
+      end
+      it 'birth_dayが空では登録できない' do
+      end
+      it 'passwordが存在してもpassword_confirmationが空では登録できない' do
+      end
+      it 'nicknameが7文字以上では登録できない' do
+      end
+      it '重複したemailが存在する場合登録できない' do
+      end
+      it 'emailに@が含まれてなければ登録できない' do
+      end
+      it 'passwordが5文字以下では登録できない' do
+      end
     end
   end
 end
