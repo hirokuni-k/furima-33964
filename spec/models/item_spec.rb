@@ -2,8 +2,7 @@ require "rails_helper"
 
 RSpec.describe Item, type: :model do
   before do
-    @user = FactoryBot.create(:user)
-    @item = FactoryBot.build(:item, user_id:@user.id)
+    @item = FactoryBot.build(:item)
   end
 
   describe '出品登録' do
@@ -29,6 +28,11 @@ RSpec.describe Item, type: :model do
          @item.valid?
          expect(@item.errors.full_messages).to include("Price can't be blank")
        end
+       it 'descriptionが空では登録できない' do
+        @item.description = ""
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Description can't be blank")
+      end
       it 'condition_idが空では登録できない' do
          @item.condition_id = nil
          @item.valid?
@@ -55,6 +59,26 @@ RSpec.describe Item, type: :model do
          @item.valid?
          expect(@item.errors.full_messages).to include("Category can't be blank")
        end
+       it 'category_idが0では登録できない' do
+        @item.category_id = 0
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Category Select")
+      end
+      it 'condition_idが0では登録できない' do
+        @item.condition_id = 0
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Condition Select")
+      end
+      it 'shipping_charge_idが0では登録できない' do
+        @item.shipping_charge_id = 0
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Shipping charge Select")
+      end
+      it 'shipping_date_idが0では登録できない' do
+        @item.shipping_date_id = 0
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Shipping date Select")
+      end
        it 'priceが299円以下だと登録できない' do
         @item.price = 299 
         @item.valid?
