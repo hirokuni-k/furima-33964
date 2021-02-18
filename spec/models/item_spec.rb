@@ -17,7 +17,6 @@ RSpec.describe Item, type: :model do
          @item.valid?
          expect(@item.errors.full_messages).to include("Image can't be blank")
      end
-  end
       it 'nameが空では登録できない' do
          @item.name = ""
          @item.valid?
@@ -105,5 +104,6 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Price is not a number")
       end
+    end
   end 
 end
