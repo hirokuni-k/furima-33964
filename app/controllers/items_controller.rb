@@ -6,14 +6,7 @@ class ItemsController < ApplicationController
   end
 
   def show
-    if current_user == @item.user
-      redirect_to action: :edit
-    unless user_signed_in? && current_user.id == @item.user_id
-      redirect_to action: :index
-    end
-   end
   end
-
 
  def new
    @item = Item.new
@@ -30,8 +23,13 @@ class ItemsController < ApplicationController
  end
 
  def edit
+  unless user_signed_in? && current_user.id == @item.user_id
+    redirect_to action: :index
+  end
  end
 
+
+ 
 def update
   if @item.update(item_params)
     redirect_to items_path 
