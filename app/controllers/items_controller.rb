@@ -1,6 +1,8 @@
 class ItemsController < ApplicationController
   before_action :set_item, except: [:index, :new, :create]
   before_action :authenticate_user!, except: [:index, :show]
+  before_action :sold_out, only:[:edit]
+
   def index
     @items = Item.includes(:user).order("created_at DESC")
   end
@@ -58,4 +60,11 @@ private
  def set_item
    @item = Item.find(params[:id])
  end
+
+ def sold_out
+  if Purchase.exists?(item_id: "#{@item.id}")
+    redirect_to root_path
+  end
 end
+end
+ 
