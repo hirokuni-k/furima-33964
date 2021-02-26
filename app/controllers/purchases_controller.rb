@@ -1,5 +1,6 @@
 class PurchasesController < ApplicationController
   before_action :set_item,only: [:index,:create]
+  before_action :authenticate_user!
   before_action :check_user,only: [:index]
   before_action :sold_out,only: [:index]
   

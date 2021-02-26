@@ -5,11 +5,15 @@ RSpec.describe PurchaseShipping, type: :model do
     @item = FactoryBot.create(:item)
     @user = FactoryBot.create(:user)
     @purchase_shipping = FactoryBot.build(:purchase_shipping,user_id: @user.id,item_id: @item.id)
-    sleep 0.3
+    sleep 0.1
   end
   describe '商品購入' do
     context '商品購入できるとき' do
       it 'user_id、item_id、post_code、prefecture_id、city、phone_number、tokenが存在すれば購入できる' do
+        expect(@purchase_shipping).to be_valid
+      end
+      it 'building_nameが空でも購入できる' do
+        (@purchase_shipping).building_name = ''
         expect(@purchase_shipping).to be_valid
       end
     end
@@ -66,5 +70,20 @@ RSpec.describe PurchaseShipping, type: :model do
         @purchase_shipping.valid?
         expect(@purchase_shipping.errors.full_messages).to include("Phone number is too long (maximum is 11 characters)")
       end
-  end
+       it 'prefecture_idが0が選択された場合は購入できない' do
+        @purchase_shipping.prefecture_id = 0
+        @purchase_shipping.valid?
+        expect(@purchase_shipping.errors.full_messages).to include("Prefecture Select")
+      end
+       it 'phone_numberにハイフンが含まれている場合は購入できない' do
+        @purchase_shipping.phone_number = '090-1111-1111'
+        @purchase_shipping.valid?
+        expect(@purchase_shipping.errors.full_messages).to include("Phone number is too long (maximum is 11 characters)")
+      end
+       it 'phone_numberが全角数字の場合は購入できない' do
+        @purchase_shipping.phone_number = '０９０１１１１１１１１'
+        @purchase_shipping.valid?
+        expect(@purchase_shipping.errors.full_messages).to include("Phone number is invalid")
+      end
+    end
 end
